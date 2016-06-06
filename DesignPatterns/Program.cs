@@ -14,23 +14,7 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            //VisitorPattern vp = new VisitorPattern();
-            //vp.Run();
-
-
-            TraditionalIterator<int> elems = new UnsafeCollections.NaturalList();
             
-
-
-            elems.MoveNext();
-            while (true)
-            {
-                Console.WriteLine(elems.Current);
-                elems.MoveNext();
-                
-                //Thread.Sleep(100);
-            }
-
             //NumberVisitor n_visitor = new NumberVisitor();
             //Number n = new MyInt();
             //n.Visit(n_visitor);

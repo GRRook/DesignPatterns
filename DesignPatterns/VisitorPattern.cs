@@ -4,94 +4,161 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DesignPatterns
+namespace OptionNoLambda
 {
-    class VisitorPattern
+    interface OptionVisitor<T, U>
     {
-        public void Run()
+        U onSome(T value);
+        U onNone();
+    }
+    interface Option<T> { U Visit<U>(OptionVisitor<T, U> visitor); }
+    class Some<T> : Option<T>
+    {
+        public T value;
+        public Some(T value) { this.value = value; }
+        public U Visit<U>(OptionVisitor<T, U> visitor)
         {
-            FruitVisitor visitor = new FruitVisitor();
-            List<Fruit> fruitList = new List<Fruit>();
-
-            Apple apple = new Apple();
-            apple.Text = "Apple";
-            Banana banana = new Banana();
-            banana.Text = "Banana";
-            Orange orange = new Orange();
-            orange.Text = "Orange";
-
-            fruitList.Add(apple);
-            fruitList.Add(banana);
-            fruitList.Add(orange);
-
-            foreach (Fruit piece in fruitList)
-            {
-                piece.Accept(visitor);
-            }
-
-            Console.WriteLine("Fruit:\n" + visitor.Output);
-            Console.ReadLine();
+            return visitor.onSome(this.value);
         }
     }
-
-    public interface IVisitor
+    class None<T> : Option<T>
     {
-        void Visit(Apple apple);
-        void Visit(Banana banana);
-        void Visit(Orange orange);
-    }
-
-    class FruitVisitor : IVisitor
-    {
-        private string output = "";
-        public string Output
+        public U Visit<U>(OptionVisitor<T, U> visitor)
         {
-            get { return this.output; }
-        }
-
-        void IVisitor.Visit(Apple apple)
-        {
-            this.output += "<" + apple.Text + ">Apple XML" + "</" + apple.Text + ">";
-        }
-
-        void IVisitor.Visit(Banana banana)
-        {
-            this.output += "<" + banana.Text + ">Banana XML" + "</" + banana.Text + ">";
-        }
-
-        void IVisitor.Visit(Orange orange)
-        {
-            this.output += "<" + orange.Text + ">Orange XML" + "</" + orange.Text + ">";
+            return visitor.onNone();
         }
     }
-
-    public abstract class Fruit
+    class PrettyPrinterIOptionVisitor<T> : OptionVisitor<T, string>
     {
-        public string Text { get; set; }
-        public abstract void Accept(IVisitor visitor);
-    }
-
-    public class Apple : Fruit
-    {
-        public override void Accept(IVisitor visitor)
+        public string onNone()
         {
-            visitor.Visit(this);
+            return "I am nothing...";
+        }
+
+        public string onSome(T value)
+        {
+            return value.ToString();
         }
     }
-
-    public class Banana : Fruit
+    class PrettyPrinterIntIOptionVisitor : OptionVisitor<int, string>
     {
-        public override void Accept(IVisitor visitor)
+        public string onNone()
         {
-            visitor.Visit(this);
+            return "I am nothing...";
+        }
+
+        public string onSome(int value)
+        {
+            return value.ToString();
         }
     }
-
-    public class Orange : Fruit
+    class LambdaIOptionVisitor<T, U> : OptionVisitor<T, U>
     {
-        public override void Accept(IVisitor visitor)
+        Func<T, U> _onSome;
+        Func<U> _onNone;
+        public LambdaIOptionVisitor(Func<T, U> onSome, Func<U> onNone)
         {
-            visitor.Visit(this);
+            this._onSome = onSome;
+            this._onNone = onNone;
+        }
+        public U onNone()
+        {
+            return onNone();
+        }
+
+        public U onSome(T value)
+        {
+            return onSome(value);
         }
     }
 }
+namespace OptionLambda
+{
+    public interface Option<T>
+    {
+        U Visit<U>(Func<U> onNone, Func<T, U> onSome);
+    }
+    public class Some<T> : Option<T>
+    {
+        T value;
+        public Some(T value) { this.value = value; }
+        public U Visit<U>(Func<U> onNone, Func<T, U> onSome)
+        {
+            return onSome(value);
+        }
+    }
+    public class None<T> : Option<T>
+    {
+        public U Visit<U>(Func<U> onNone, Func<T, U> onSome)
+        {
+            return onNone();
+        }
+    }
+}
+namespace Number
+{
+    interface INumberVisitor
+    {
+        void onMyFloat(MyFloat number);
+        void onMyInt(MyInt number);
+    }
+    class NumberVisitor : INumberVisitor
+    {
+        public void onMyFloat(MyFloat number) { Console.WriteLine("Found a float and now?"); }
+        public void onMyInt(MyInt number) { Console.WriteLine("Found an int and now?!"); }
+    }
+    interface Number { void Visit(INumberVisitor visitor); }
+    class MyInt : Number
+    {
+        void Number.Visit(INumberVisitor visitor)
+        {
+            visitor.onMyInt(this);
+        }
+    }
+    class MyFloat : Number
+    {
+        void Number.Visit(INumberVisitor visitor)
+        {
+            visitor.onMyFloat(this);
+        }
+    }
+
+}
+namespace MusicLibrary
+{
+    interface IMusicLibraryVisitor
+    {
+        void onHeavyMetal(HeavyMetal number);
+        void onJazz(Jazz number);
+    }
+    class MusicLibraryVisitor : IMusicLibraryVisitor
+    {
+        public List<HeavyMetal> heavyMetal = new List<HeavyMetal>();
+        public List<Jazz> jazz = new List<Jazz>();
+
+        public void onHeavyMetal(HeavyMetal song) { heavyMetal.Add(song); }
+        public void onJazz(Jazz song) { jazz.Add(song); }
+    }
+    interface Song { void Visit(IMusicLibraryVisitor visitor); }
+    class HeavyMetal : Song
+    {
+        string title;
+        public HeavyMetal(string title) { this.title = title; }
+        public void Visit(IMusicLibraryVisitor visitor)
+        {
+            visitor.onHeavyMetal(this);
+        }
+    }
+    class Jazz : Song
+    {
+        string title;
+        public Jazz(string title) { this.title = title; }
+        public void Visit(IMusicLibraryVisitor visitor)
+        {
+            visitor.onJazz(this);
+        }
+    }
+}
+
+
+

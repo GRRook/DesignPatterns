@@ -26,7 +26,4 @@ namespace DesignPatterns
         }
     }
 
-
-
-
 }
