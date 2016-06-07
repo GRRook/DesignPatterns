@@ -11,7 +11,7 @@ namespace DesignPatterns
     {
         Option<T> GetNext();
     }
-    
+
     class Iterablelist<T> : Iterator<T>
     {
         private List<T> list;
@@ -23,6 +23,7 @@ namespace DesignPatterns
         public Option<T> GetNext()
         {
             throw new NotImplementedException();
+            
         }
     }
 

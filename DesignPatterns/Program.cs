@@ -15,9 +15,9 @@ namespace DesignPatterns
         static void Main(string[] args)
         {
             
-            //NumberVisitor n_visitor = new NumberVisitor();
-            //Number n = new MyInt();
-            //n.Visit(n_visitor);
+            NumberVisitor n_visitor = new NumberVisitor();
+            Number1 n = new MyInt();
+            n.Visit(n_visitor);
 
             //MusicLibraryVisitor music_library_visitor = new MusicLibraryVisitor();
             //List<Song> songs = new List<Song>();
@@ -41,6 +41,7 @@ namespace DesignPatterns
             //number = new None<int>();
             //inc_number = number.Visit(() => { throw new Exception("Expecting a value..."); }, i => i + 1);
             //Console.WriteLine(inc_number);
+            Console.ReadLine();
 
         }
     }

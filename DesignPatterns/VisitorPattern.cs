@@ -11,7 +11,10 @@ namespace OptionNoLambda
         U onSome(T value);
         U onNone();
     }
-    interface Option<T> { U Visit<U>(OptionVisitor<T, U> visitor); }
+    interface Option<T>
+    {
+        U Visit<U>(OptionVisitor<T, U> visitor);
+    }
     class Some<T> : Option<T>
     {
         public T value;
@@ -107,17 +110,17 @@ namespace Number
         public void onMyFloat(MyFloat number) { Console.WriteLine("Found a float and now?"); }
         public void onMyInt(MyInt number) { Console.WriteLine("Found an int and now?!"); }
     }
-    interface Number { void Visit(INumberVisitor visitor); }
-    class MyInt : Number
+    interface Number1 { void Visit(INumberVisitor visitor); }
+    class MyInt : Number1
     {
-        void Number.Visit(INumberVisitor visitor)
+        void Number1.Visit(INumberVisitor visitor)
         {
             visitor.onMyInt(this);
         }
     }
-    class MyFloat : Number
+    class MyFloat : Number1
     {
-        void Number.Visit(INumberVisitor visitor)
+        void Number1.Visit(INumberVisitor visitor)
         {
             visitor.onMyFloat(this);
         }
