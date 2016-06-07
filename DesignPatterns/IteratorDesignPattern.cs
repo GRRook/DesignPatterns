@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OptionLambda;
+using OptionNoLambda;
+
 namespace DesignPatterns
 {
     public interface Iterator<T>
@@ -12,19 +13,24 @@ namespace DesignPatterns
         Option<T> GetNext();
     }
 
-    class Iterablelist<T> : Iterator<T>
+    class NaturalList : Iterator<int>
     {
-        private List<T> list;
-        public Iterablelist(List<T> list)
-        {
-            this.list = list;
-        }
+        private int current = -1;
 
+        public Option<int> GetNext()
+        {
+            current++;
+            return new Some<int>(current);
+        }
+    }
+
+    class IterableList<T> : Iterator<T>
+    {
         public Option<T> GetNext()
         {
             throw new NotImplementedException();
-            
         }
     }
+
 
 }

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace OptionNoLambda
 {
-    interface OptionVisitor<T, U>
+    public interface OptionVisitor<T, U>
     {
         U onSome(T value);
         U onNone();
     }
-    interface Option<T>
+    public interface Option<T>
     {
         U Visit<U>(OptionVisitor<T, U> visitor);
     }
@@ -77,11 +77,11 @@ namespace OptionNoLambda
 }
 namespace OptionLambda
 {
-    public interface Option<T>
+    public interface IOption<T>
     {
         U Visit<U>(Func<U> onNone, Func<T, U> onSome);
     }
-    public class Some<T> : Option<T>
+    public class Some<T> : IOption<T>
     {
         T value;
         public Some(T value) { this.value = value; }
@@ -90,7 +90,7 @@ namespace OptionLambda
             return onSome(value);
         }
     }
-    public class None<T> : Option<T>
+    public class None<T> : IOption<T>
     {
         public U Visit<U>(Func<U> onNone, Func<T, U> onSome)
         {

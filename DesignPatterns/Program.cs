@@ -7,6 +7,7 @@ using Number;
 using OptionNoLambda;
 using MusicLibrary;
 using System.Threading;
+using OptionNoLambda;
 
 namespace DesignPatterns
 {
@@ -18,6 +19,14 @@ namespace DesignPatterns
             NumberVisitor n_visitor = new NumberVisitor();
             Number1 n = new MyInt();
             n.Visit(n_visitor);
+
+            NaturalList nl = new NaturalList();
+            while (true)
+            {
+                
+                Option<int> a = nl.GetNext();
+                Console.WriteLine(a);
+            }
 
             //MusicLibraryVisitor music_library_visitor = new MusicLibraryVisitor();
             //List<Song> songs = new List<Song>();
