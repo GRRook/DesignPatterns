@@ -14,26 +14,29 @@ namespace DesignPatterns
             sf.getShape("CIRCLE").draw();
         }
     }
-    public interface Shape
+
+    public interface IShape
     {
         void draw();
     }
 
-    public class Rectangle : Shape
+    public class Rectangle : IShape
     {
        public void draw()
         {
             Console.WriteLine("Rectangle");
         }
     }
-    public class Circle : Shape
+
+    public class Circle : IShape
     {
         public void draw()
         {
             Console.WriteLine("Circle");
         }
     }
-    public class Square : Shape
+
+    public class Square : IShape
     {
         public void draw()
         {
@@ -44,28 +47,39 @@ namespace DesignPatterns
     public class ShapeFactory
     {
         //use getShape method to get object of type shape 
-        public Shape getShape(String shapeType)
+        public IShape getShape(String shapeType)
         {
-            if (shapeType == null)
-            {
-                return null;
-            }
-            if (shapeType == "CIRCLE")
-            {
-                return new Circle();
+            //if (shapeType == null)
+            //{
+            //    return null;
+            //}
+            //if (shapeType == "CIRCLE")
+            //{
+            //    return new Circle();
 
-            }
-            else if (shapeType =="RECTANGLE")
-            {
-                return new Rectangle();
+            //}
+            //else if (shapeType =="RECTANGLE")
+            //{
+            //    return new Rectangle();
 
-            }
-            else if (shapeType == "SQUARE")
-            {
-                return new Square();
-            }
+            //}
+            //else if (shapeType == "SQUARE")
+            //{
+            //    return new Square();
+            //}
+            //return null;
 
-            return null;
+			switch (shapeType)
+			{
+				case "CIRCLE":
+					return new Circle();
+				case "RECTANGLE":
+					return new Rectangle();
+				case "SQUARE":
+					return new Square();
+				default:
+					return null;
+			}
         }
     }
 }
