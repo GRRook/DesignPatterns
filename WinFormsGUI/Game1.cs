@@ -11,6 +11,7 @@ namespace WinFormsGUI
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D whiteRectangle;
 
         public Game1()
         {
@@ -37,8 +38,11 @@ namespace WinFormsGUI
         /// </summary>
         protected override void LoadContent()
         {
+            System.Console.WriteLine("ghaloo");
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
+            whiteRectangle.SetData(new[] { Color.White });
 
             // TODO: use this.Content to load your game content here
         }
@@ -49,7 +53,11 @@ namespace WinFormsGUI
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            // TODO: Unload any non ContentManager content here 
+            System.Console.WriteLine("ghaloo");
+            base.UnloadContent();
+            spriteBatch.Dispose();
+            whiteRectangle.Dispose();
         }
 
         /// <summary>
@@ -73,11 +81,16 @@ namespace WinFormsGUI
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            //GraphicsDevice.Clear(Color.Black);
+            
+            //GraphicsDevice.Clear(Color.Green);
 
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin();
+            // Option One (if you have integer size and coordinates)
+            spriteBatch.Draw(whiteRectangle, new Rectangle(10, 20, 80, 30), Color.Chocolate);
+            spriteBatch.End();
             base.Draw(gameTime);
+
         }
     }
 }
