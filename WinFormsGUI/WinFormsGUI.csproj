@@ -42,6 +42,7 @@
     <Compile Include="Decorator\Decorator.cs" />
     <Compile Include="Decorator\BaseComponent.cs" />
     <Compile Include="Decorator\ConcreteLabel.cs" />
+    <Compile Include="Factory\ComponentFactory.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
