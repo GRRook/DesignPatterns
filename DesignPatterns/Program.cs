@@ -15,7 +15,7 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            
+
             //NumberVisitor n_visitor = new NumberVisitor();
             //Number1 n = new MyInt();
             //n.Visit(n_visitor);
@@ -28,6 +28,9 @@ namespace DesignPatterns
                 Console.WriteLine(a);
             }
             */
+
+            FactoryPattern fp = new FactoryPattern();
+            fp.Run();
 
             DecoratorPattern dp = new DecoratorPattern();
             dp.Run();

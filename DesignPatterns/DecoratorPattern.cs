@@ -83,7 +83,7 @@ public class SportsStudentDecorator : StudentDecorator
         {
 
         }
-
+        
         public override string DisplayInformation()
         {
             var result = base.DisplayInformation();
