@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 using WinFormsGUI.Decorator;
+using WinFormsGUI.Factory;
 
 namespace WinFormsGUI
 {
@@ -29,12 +31,21 @@ namespace WinFormsGUI
         protected override void Initialize()
         {
 			// TODO: Add your initialization logic here
-			ConcreteLabel label = new ConcreteLabel();
-			var a = label.GetText();
+			//ConcreteLabel label = new ConcreteLabel();
+			//var a = label.GetText();
 			
-			ButtonDecorator button = new ButtonDecorator(label);
+			//ButtonDecorator button = new ButtonDecorator(label);
+			//var b = button.GetText();
+			//button.OnClick();
+
+			IFactory<BaseComponent> factory = new ComponentFactory();
+			
+			BaseComponent label = factory.GetComponent("label");
+			var a = label.GetText();
+
+			BaseComponent button = factory.GetComponent("button");
 			var b = button.GetText();
-			button.OnClick();
+			//button.OnClick();
 
             base.Initialize();
         }
@@ -86,8 +97,7 @@ namespace WinFormsGUI
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
-        {
-            
+        {            
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
@@ -96,9 +106,14 @@ namespace WinFormsGUI
             // Option One (if you have integer size and coordinates)
             spriteBatch.Draw(whiteRectangle, new Rectangle(10, 20, 80, 30), Color.Tomato);
 
+			//var components = new List<BaseComponent>();
+			//foreach(var component in components)
+			//{
+			//	spriteBatch.Draw(component.texture, component.rectangle, component.color);
+			//}
+
             spriteBatch.End();
             base.Draw(gameTime);
-
         }
     }
 }

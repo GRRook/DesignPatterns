@@ -7,7 +7,7 @@ using WinFormsGUI.Decorator;
 
 namespace WinFormsGUI.Factory
 {
-	public class ComponentFactory
+	public class ComponentFactory : IFactory<BaseComponent>
 	{
 		public BaseComponent GetComponent(string componentType)
 		{

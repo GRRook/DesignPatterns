@@ -14,5 +14,10 @@ namespace WinFormsGUI.Decorator
 		{
 			return this.text;
 		}
+
+		public override T Visit<T>(Func<ConcreteLabel, T> onLabel, Func<ButtonDecorator, T> onButton)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
