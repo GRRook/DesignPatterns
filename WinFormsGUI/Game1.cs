@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using WinFormsGUI.Decorator;
 
 namespace WinFormsGUI
 {
@@ -27,7 +28,13 @@ namespace WinFormsGUI
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+			// TODO: Add your initialization logic here
+			ConcreteLabel label = new ConcreteLabel();
+			var a = label.GetText();
+			
+			ButtonDecorator button = new ButtonDecorator(label);
+			var b = button.GetText();
+			button.OnClick();
 
             base.Initialize();
         }
@@ -38,7 +45,6 @@ namespace WinFormsGUI
         /// </summary>
         protected override void LoadContent()
         {
-            System.Console.WriteLine("ghaloo");
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             whiteRectangle = new Texture2D(GraphicsDevice, 1, 1);
@@ -82,12 +88,14 @@ namespace WinFormsGUI
         protected override void Draw(GameTime gameTime)
         {
             
-            //GraphicsDevice.Clear(Color.Green);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
             spriteBatch.Begin();
+
             // Option One (if you have integer size and coordinates)
-            spriteBatch.Draw(whiteRectangle, new Rectangle(10, 20, 80, 30), Color.Chocolate);
+            spriteBatch.Draw(whiteRectangle, new Rectangle(10, 20, 80, 30), Color.Tomato);
+
             spriteBatch.End();
             base.Draw(gameTime);
 
