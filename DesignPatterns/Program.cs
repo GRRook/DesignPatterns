@@ -16,17 +16,22 @@ namespace DesignPatterns
         static void Main(string[] args)
         {
             
-            NumberVisitor n_visitor = new NumberVisitor();
-            Number1 n = new MyInt();
-            n.Visit(n_visitor);
+            //NumberVisitor n_visitor = new NumberVisitor();
+            //Number1 n = new MyInt();
+            //n.Visit(n_visitor);
 
-            NaturalList nl = new NaturalList();
-            while (true)
+            //NaturalList nl = new NaturalList();
+            /*while (true)
             {
                 
                 Option<int> a = nl.GetNext();
                 Console.WriteLine(a);
             }
+            */
+
+            DecoratorPattern dp = new DecoratorPattern();
+            dp.Run();
+
 
             //MusicLibraryVisitor music_library_visitor = new MusicLibraryVisitor();
             //List<Song> songs = new List<Song>();

@@ -13,7 +13,7 @@ namespace OptionNoLambda
     }
     public interface Option<T>
     {
-        U Visit<U>(OptionVisitor<T, U> visitor);
+        U Visit<U>(OptionVisitor<T, U> visitor); 
     }
     class Some<T> : Option<T>
     {
