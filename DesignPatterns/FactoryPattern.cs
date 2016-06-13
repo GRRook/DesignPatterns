@@ -11,26 +11,27 @@ namespace DesignPatterns
         public void Run()
         {
             ShapeFactory sf = new ShapeFactory();
-            sf.getShape("CIRCLE").draw();
+			var shape = sf.getShape("CIRCLE");
+			shape.Draw();
         }
     }
 
     public interface IShape
     {
-        void draw();
+        void Draw();
     }
 
     public class Rectangle : IShape
     {
-       public void draw()
-        {
-            Console.WriteLine("Rectangle");
-        }
+       public void Draw()
+       {
+           Console.WriteLine("Rectangle");
+       }
     }
 
     public class Circle : IShape
     {
-        public void draw()
+        public void Draw()
         {
             Console.WriteLine("Circle");
         }
@@ -38,7 +39,7 @@ namespace DesignPatterns
 
     public class Square : IShape
     {
-        public void draw()
+        public void Draw()
         {
             Console.WriteLine("Square");
         }
@@ -49,26 +50,6 @@ namespace DesignPatterns
         //use getShape method to get object of type shape 
         public IShape getShape(String shapeType)
         {
-            //if (shapeType == null)
-            //{
-            //    return null;
-            //}
-            //if (shapeType == "CIRCLE")
-            //{
-            //    return new Circle();
-
-            //}
-            //else if (shapeType =="RECTANGLE")
-            //{
-            //    return new Rectangle();
-
-            //}
-            //else if (shapeType == "SQUARE")
-            //{
-            //    return new Square();
-            //}
-            //return null;
-
 			switch (shapeType)
 			{
 				case "CIRCLE":
