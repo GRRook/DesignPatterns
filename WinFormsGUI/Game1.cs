@@ -38,14 +38,18 @@ namespace WinFormsGUI
 			//var b = button.GetText();
 			//button.OnClick();
 
-			IFactory<BaseComponent> factory = new ComponentFactory();
+			IFactory<BaseComponent> componentFactory = new ComponentFactory();
 			
-			BaseComponent label = factory.GetComponent("label");
+			BaseComponent label = componentFactory.Create("label");
+			var lbl = label.Visit(x => label, x => label);
+			//ConcreteLabel lbl = label.Visit(x => label, x => label);
 			var a = label.GetText();
 
-			BaseComponent button = factory.GetComponent("button");
+			BaseComponent button = componentFactory.Create("button");
+			var btn = button.Visit(x => button, x => button);
+			//ButtonDecorator btn = button.Visit(x => button, x => button);
 			var b = button.GetText();
-			//button.OnClick();
+			//btn.OnClick();
 
             base.Initialize();
         }

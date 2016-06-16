@@ -46,6 +46,7 @@
     <Compile Include="DecoratorPattern.cs" />
     <Compile Include="FactoryPattern.cs" />
     <Compile Include="IteratorDesignPattern.cs" />
+    <Compile Include="OptionPattern.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VisitorPattern.cs" />

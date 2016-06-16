@@ -8,6 +8,6 @@ namespace WinFormsGUI.Factory
 {
 	public interface IFactory<T>
 	{
-		T GetComponent(string desc);
+		T Create(string desc);
 	}
 }

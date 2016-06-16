@@ -21,7 +21,7 @@ namespace WinFormsGUI.Decorator
 
 		public override T Visit<T>(Func<ConcreteLabel, T> onLabel, Func<ButtonDecorator, T> onButton)
 		{
-			throw new NotImplementedException();
+			return onButton(this);
 		}
 	}
 }

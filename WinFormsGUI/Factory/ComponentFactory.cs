@@ -9,7 +9,7 @@ namespace WinFormsGUI.Factory
 {
 	public class ComponentFactory : IFactory<BaseComponent>
 	{
-		public BaseComponent GetComponent(string componentType)
+		public BaseComponent Create(string componentType)
 		{
 			componentType = componentType.ToLower();
 			var label = new ConcreteLabel();

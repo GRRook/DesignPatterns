@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WinFormsGUI.Option;
 
 namespace WinFormsGUI.Decorator
 {
 	public class ConcreteLabel : BaseComponent
-	{
+	{		
 		private string text { get; set; }
 
 		public override string GetText()
@@ -17,7 +18,7 @@ namespace WinFormsGUI.Decorator
 
 		public override T Visit<T>(Func<ConcreteLabel, T> onLabel, Func<ButtonDecorator, T> onButton)
 		{
-			throw new NotImplementedException();
+			return onLabel(this);
 		}
 	}
 }
