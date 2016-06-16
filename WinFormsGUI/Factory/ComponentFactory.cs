@@ -16,13 +16,13 @@ namespace WinFormsGUI.Factory
 
 			switch (componentType)
 			{
-				case "Label":
+				case "label":
 					return label;
 				case "button":
 					return new ButtonDecorator(label);
-				default:
+                default:
 					return null;
-			}
+            }
 		}
-	}
+    }
 }
