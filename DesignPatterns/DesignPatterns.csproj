@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DecoratorPattern.cs" />
+    <Compile Include="Example.cs" />
     <Compile Include="FactoryPattern.cs" />
     <Compile Include="IteratorDesignPattern.cs" />
     <Compile Include="OptionPattern.cs" />

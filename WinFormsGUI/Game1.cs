@@ -42,17 +42,16 @@ namespace WinFormsGUI
 			
 			BaseComponent label = componentFactory.Create("label");
 			var lbl = label.Visit(x => label, x => label);
-			//ConcreteLabel lbl = label.Visit(x => label, x => label);
+			ConcreteLabel lbl = label.Visit(x => label, x => label);
 			var a = label.GetText();
             System.Console.WriteLine(a);
 
             BaseComponent button = componentFactory.Create("button");
 			var btn = button.Visit(x => button, x => button);
-            System.Console.WriteLine(btn);
-			//ButtonDecorator btn = button.Visit(x => button, x => button);
+			ButtonDecorator btn = button.Visit(x => button, x => button);
 			var b = button.GetText();
-            //btn.OnClick();
-            System.Console.WriteLine(b);
+            btn.OnClick();
+
             base.Initialize();
         }
 
