@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using WinFormsGUI.Decorator;
 using WinFormsGUI.Factory;
+using WinFormsGUI.Iterator;
 
 namespace WinFormsGUI
 {
@@ -15,8 +16,9 @@ namespace WinFormsGUI
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D whiteRectangle;
+		List<BaseComponent> cList = new List<BaseComponent>();
 
-        public Game1()
+		public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -31,16 +33,18 @@ namespace WinFormsGUI
         protected override void Initialize()
         {
 			IFactory<BaseComponent> componentFactory = new ComponentFactory();
-			
+
 			BaseComponent label = componentFactory.Create("label");
-			var lbl = label.Visit(x => label, x => label);
-			label.Visit<string>(c => "label", c => "button");
-			var a = label.GetText();
+			cList.Add(label);
+			//var lbl = label.Visit(x => label, x => label);
+			//label.Visit<string>(c => "label", c => "button");
+			//var a = label.GetText();
 
             BaseComponent button = componentFactory.Create("button");
-			var btn = button.Visit(x => button, x => button);
-			label.Visit<string>(c => "label", c => c.OnClick());
-			var b = button.GetText(); ;
+			cList.Add(button);
+			//var btn = button.Visit(x => button, x => button);
+			//label.Visit<string>(c => "label", c => c.OnClick());
+			//var b = button.GetText();
 
             base.Initialize();
         }
@@ -101,13 +105,15 @@ namespace WinFormsGUI
             // Option One (if you have integer size and coordinates)
             spriteBatch.Draw(whiteRectangle, new Rectangle(10, 20, 80, 30), Color.Tomato);
 
-			//var components = new List<BaseComponent>();
-			//foreach(var component in components)
-			//{
-			//	spriteBatch.Draw(component.texture, component.rectangle, component.color);
-			//}
+			IIterator<BaseComponent> iterator = new ComponentList<BaseComponent>(cList);
+			while (iterator.MoveNext())
+			{
+				BaseComponent d = iterator.GetNext();
+				d.GetText();
+				d.Visit<string>(c => string.Empty, c => c.OnClick());
+			}
 
-            spriteBatch.End();
+			spriteBatch.End();
             base.Draw(gameTime);
         }
     }

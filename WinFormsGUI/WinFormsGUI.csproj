@@ -46,7 +46,6 @@
     <Compile Include="Factory\IFactory.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Iterator\ComponentList.cs" />
-    <Compile Include="Option\IOption.cs" />
     <Compile Include="Iterator\IIterator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

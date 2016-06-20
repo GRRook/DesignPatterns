@@ -4,15 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WinFormsGUI.Decorator;
-using WinFormsGUI.Option;
 
 namespace WinFormsGUI.Iterator
 {
-	public class ComponentList : IIterator<BaseComponent>
+	public class ComponentList<T> : IIterator<T>
 	{
-		public IOption<BaseComponent> GetNext()
+		private List<T> internalList;
+		private int Index = -1;
+
+		public ComponentList(List<T> givenList)
 		{
-			throw new NotImplementedException();
+			this.internalList = givenList;
+		}
+
+		public T GetNext()
+		{
+			if (Index >= internalList.Count)
+			{
+				throw new IndexOutOfRangeException();
+			}
+
+			return internalList[Index];			
+		}
+
+		public bool MoveNext()
+		{
+			if (Index < internalList.Count && internalList.Count > 0)
+			{
+				Index++;
+				return true;
+			}
+			return false;
 		}
 	}
 }
