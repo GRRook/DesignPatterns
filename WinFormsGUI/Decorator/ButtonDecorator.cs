@@ -14,9 +14,9 @@ namespace WinFormsGUI.Decorator
 			this.text = "Button";
 		}
 
-		public void OnClick()
+		public string OnClick()
 		{
-			Console.WriteLine($"The Button with text {text} has been clicked");
+			return $"The Button with text {text} has been clicked";
 		}
 
 		public override T Visit<T>(Func<ConcreteLabel, T> onLabel, Func<ButtonDecorator, T> onButton)
