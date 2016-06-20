@@ -30,14 +30,6 @@ namespace WinFormsGUI
         /// </summary>
         protected override void Initialize()
         {
-			// TODO: Add your initialization logic here
-			//ConcreteLabel label = new ConcreteLabel();
-			//var a = label.GetText();
-			
-			//ButtonDecorator button = new ButtonDecorator(label);
-			//var b = button.GetText();
-			//button.OnClick();
-
 			IFactory<BaseComponent> componentFactory = new ComponentFactory();
 			
 			BaseComponent label = componentFactory.Create("label");

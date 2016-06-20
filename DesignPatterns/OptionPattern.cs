@@ -12,13 +12,13 @@ namespace DesignPatterns
 
 	public interface IOption<T>
 	{
-		U Visit<U>(Func<T, U> onLabel, Func<T, U> onButton);
+		U Visit<U>(Func<T, U> onSome, Func<T, U> onNone);
 	}
 
 	public interface IOptionVisitor<T, U>
 	{
-		U onLabel<U>(T value);
-		U onButton<U>();
+		U onSome<U>();
+		U onNone<U>();
 	}
 
 	public class onLabel<T> : IOption<T>
