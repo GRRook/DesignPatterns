@@ -21,7 +21,7 @@ namespace WinFormsGUI.Iterator
 		{
 			if (Index >= internalList.Count)
 			{
-				throw new IndexOutOfRangeException();
+				//throw new IndexOutOfRangeException();
 			}
 
 			return internalList[Index];			

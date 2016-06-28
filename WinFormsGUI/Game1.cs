@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using WinFormsGUI.Decorator;
 using WinFormsGUI.Factory;
@@ -17,12 +18,15 @@ namespace WinFormsGUI
         SpriteBatch spriteBatch;
         Texture2D whiteRectangle;
 		List<BaseComponent> cList = new List<BaseComponent>();
+		//SpriteFont font;
 
 		public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-        }
+
+			//font = Content.Load<SpriteFont>("Kootenay");
+		}
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -32,19 +36,15 @@ namespace WinFormsGUI
         /// </summary>
         protected override void Initialize()
         {
+			this.IsMouseVisible = true;
+
 			IFactory<BaseComponent> componentFactory = new ComponentFactory();
 
-			BaseComponent label = componentFactory.Create("label");
+			BaseComponent label = componentFactory.Create("label", "GA-Label", 20, 20, 100, 50, Color.Yellow);
 			cList.Add(label);
-			//var lbl = label.Visit(x => label, x => label);
-			//label.Visit<string>(c => "label", c => "button");
-			//var a = label.GetText();
 
-            BaseComponent button = componentFactory.Create("button");
+            BaseComponent button = componentFactory.Create("button", "GA-Button", 20, 100, 100, 50, Color.Cyan);
 			cList.Add(button);
-			//var btn = button.Visit(x => button, x => button);
-			//label.Visit<string>(c => "label", c => c.OnClick());
-			//var b = button.GetText();
 
             base.Initialize();
         }
@@ -86,8 +86,33 @@ namespace WinFormsGUI
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+			// TODO: Add your update logic here
+			var mouseState = Mouse.GetState();
+			var mousePosition = new Point(mouseState.X, mouseState.Y);
 
+			var p = mousePosition;
+
+			if(mouseState.LeftButton == ButtonState.Pressed)
+			{
+				foreach(var component in cList)
+				{
+					Rectangle componentPosition = component.GetRectangle();				
+
+					if (componentPosition.Contains(mousePosition))
+					{
+						string value = component.Visit<string>(c => string.Empty, c => c.OnClick());
+
+						if (!string.IsNullOrWhiteSpace(value))
+						{
+							// Show message box with value
+														
+						}
+						// Break from the foreach
+						break;
+					}
+				}
+			}
+					
             base.Update(gameTime);
         }
 
@@ -102,15 +127,27 @@ namespace WinFormsGUI
             // TODO: Add your drawing code here
             spriteBatch.Begin();
 
-            // Option One (if you have integer size and coordinates)
-            spriteBatch.Draw(whiteRectangle, new Rectangle(10, 20, 80, 30), Color.Tomato);
+			// Option One (if you have integer size and coordinates)
+			//spriteBatch.Draw(whiteRectangle, new Rectangle(10, 20, 80, 30), Color.Tomato);			
+
+			SpriteFont font = Content.Load<SpriteFont>("Kootenay");
 
 			IIterator<BaseComponent> iterator = new ComponentList<BaseComponent>(cList);
 			while (iterator.MoveNext())
 			{
-				BaseComponent d = iterator.GetNext();
-				d.GetText();
-				d.Visit<string>(c => string.Empty, c => c.OnClick());
+				try
+				{
+					BaseComponent d = iterator.GetNext();
+					var cr = d.GetRectangle();
+					spriteBatch.Draw(whiteRectangle, cr, d.GetColor());
+
+					Vector2 position = new Vector2(cr.X, cr.Y);
+					spriteBatch.DrawString(font, d.GetText(), position, Color.Black);
+				}
+				catch(Exception ex)
+				{
+					// do something with the exception.
+				}
 			}
 
 			spriteBatch.End();
